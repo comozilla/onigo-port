@@ -1,6 +1,14 @@
 var sphero = require("sphero");
-var orb = sphero("7bb17ddbe33849e594f6bb481de272b7");
+var noble = require("noble");
 
-orb.connect(function() {
-  console.log("connected!");
+noble.on("stateChange", state => {
+  if (state === "poweredOn") {
+    noble.startScanning();
+  } else {
+    noble.stopScanning();
+  }
+});
+
+noble.on("discover", peripheral => {
+  console.log(peripheral.advertisement.localName, peripheral.uuid);
 });
