@@ -1,26 +1,18 @@
-type observer = (...eventData) => void;
+export type observer = (...eventData) => void;
 
-class EventPublisher {
-  private observers: { [key: string]: Array<observer> };
+const observers: { [key: string]: Array<observer> } = {};
 
-  constructor() {
-    this.observers = {};
+export function subscribe(eventName: string, observer: observer) {
+  if (typeof observers[eventName] === "undefined") {
+    observers[eventName] = [];
   }
-
-  subscribe(eventName: string, observer: observer) {
-    if (typeof this.observers[eventName] === "undefined") {
-      this.observers[eventName] = [];
-    }
-    this.observers[eventName].push(observer);
-  }
-
-  publish(eventName: string, ...eventData) {
-    if (typeof this.observers[eventName] !== "undefined") {
-      this.observers[eventName].forEach((observer: observer) => {
-        observer.apply(null, eventData);
-      });
-    }
-  }
+  observers[eventName].push(observer);
 }
 
-export default new EventPublisher();
+export function publish(author: any, eventName: string, ...eventData: Array<any>) {
+  if (typeof this.observers[eventName] !== "undefined") {
+    this.observers[eventName].forEach((observer: observer) => {
+      observer(author, ...eventData);
+    });
+  }
+}
