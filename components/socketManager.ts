@@ -3,7 +3,7 @@ import { createServer, Server } from "http";
 import ComponentBase from "./componentBase";
 
 const subjectList: Array<string> = [
-  "hoge"
+  "addSphero"
 ];
 export default class SocketManager extends ComponentBase {
   private server: Server;
