@@ -1,18 +1,18 @@
-export type observer = (...eventData) => void;
+export type ObserveFunction = (...eventData) => void;
 
-const observers: { [key: string]: Array<observer> } = {};
+const observeFunctions: { [key: string]: Array<ObserveFunction> } = {};
 
-export function subscribe(eventName: string, observer: observer) {
-  if (typeof observers[eventName] === "undefined") {
-    observers[eventName] = [];
+export function subscribe(eventName: string, observeFunction: ObserveFunction) {
+  if (typeof observeFunctions[eventName] === "undefined") {
+    observeFunctions[eventName] = [];
   }
-  observers[eventName].push(observer);
+  observeFunctions[eventName].push(observeFunction);
 }
 
 export function publish(author: any, eventName: string, ...eventData: Array<any>) {
-  if (typeof this.observers[eventName] !== "undefined") {
-    this.observers[eventName].forEach((observer: observer) => {
-      observer(author, ...eventData);
+  if (typeof this.observeFunctions[eventName] !== "undefined") {
+    this.observeFunctions[eventName].forEach((observeFunction: ObserveFunction) => {
+      observeFunction(author, ...eventData);
     });
   }
 }
