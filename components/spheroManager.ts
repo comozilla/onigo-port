@@ -18,6 +18,9 @@ export default class SpheroManager extends ComponentBase {
     }
     const orb = sphero(port);
     orb.connect(error => {
+      if (typeof error !== "undefined") {
+        throw error;
+      }
       this.orbs[name] = new Orb(name, port, orb);
       this.publish("updateOrbs", this.orbs);
     });
