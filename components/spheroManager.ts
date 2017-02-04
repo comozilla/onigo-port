@@ -7,7 +7,7 @@ export default class SpheroManager extends ComponentBase {
   constructor() {
     super();
     this.orbs = {};
-    this.subscribe("addSphero", this.add.bind(this));
+    this.subscribe("addSpheroWithUUID", this.add.bind(this));
     this.subscribe("removeSphero", this.remove.bind(this));
     this.subscribe("runCommand", this.runCommand.bind(this));
   }
